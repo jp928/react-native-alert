@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
@@ -14,6 +15,15 @@ import androidx.fragment.app.FragmentManager;
 
 /** A fragment used to display the dialog. */
 public class AlertFragment extends DialogFragment implements DialogInterface.OnClickListener {
+  private static final int UI_FLAG_IMMERSIVE = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+    // Set the content to appear under the system bars so that the
+    // content doesn't resize when the system bars hide and show.
+    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+    // Hide the nav bar and status bar
+    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+    | View.SYSTEM_UI_FLAG_FULLSCREEN;
 
   /* package */ static final String ARG_TITLE = "title";
   /* package */ static final String ARG_MESSAGE = "message";
@@ -76,9 +86,7 @@ public class AlertFragment extends DialogFragment implements DialogInterface.OnC
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     Dialog ad = createDialog(getActivity(), getArguments(), this);
     ad.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-    ad.getWindow().getDecorView().setSystemUiVisibility(
-      getActivity().getWindow().getDecorView().getSystemUiVisibility()
-    );
+    ad.getWindow().getDecorView().setSystemUiVisibility(UI_FLAG_IMMERSIVE);
 
     return ad;
   }
