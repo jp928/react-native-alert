@@ -1,18 +1,17 @@
+import Alert from '@nectr-rn/react-native-alert';
 import * as React from 'react';
-
-import { StyleSheet, View, Text } from 'react-native';
-import ReactNativeAlert from '@nectr-rn/react-native-alert';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    ReactNativeAlert.multiply(3, 7).then(setResult);
-  }, []);
-
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <TouchableOpacity
+        onPress={() => {
+          Alert.alert('hi', 'Hello World');
+        }}
+      >
+        <Text>Testing</Text>
+      </TouchableOpacity>
     </View>
   );
 }

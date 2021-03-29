@@ -1,9 +1,7 @@
-import { NativeModules } from 'react-native';
+import { default as AlertAndroid } from './lib/Alert';
+import { Alert as AlertIOS, Platform } from 'react-native';
 
-type ReactNativeAlertType = {
-  multiply(a: number, b: number): Promise<number>;
-};
-
-const { ReactNativeAlert } = NativeModules;
-
-export default ReactNativeAlert as ReactNativeAlertType;
+export default Platform.select({
+  android: AlertAndroid as any,
+  ios: AlertIOS,
+});
